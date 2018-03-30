@@ -1,0 +1,25 @@
+{
+	"name": "tigron/skeleton-vat-check",
+	"description": "Tigron Skeleton VAT check",
+	"type": "library",
+	"require": {
+		"tigron/skeleton-object": "*",
+		"tigron/skeleton-transaction": "*",
+		"tigron/skeleton-migrate": "*"
+	},
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Tigron BVBA",
+			"email": "support@tigron.be"
+		}
+	],
+	"support": {
+		"source": "https://github.com/tigron/skeleton-vat-check",
+		"issues": "https://github.com/tigron/skeleton-vat-check/issues"
+	},
+	"autoload": {
+		"psr-4": { "Skeleton\\Vat\\Check": "lib/Skeleton/Vat/Check/" }
+	}
+
+}
