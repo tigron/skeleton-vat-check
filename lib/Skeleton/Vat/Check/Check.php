@@ -17,37 +17,53 @@ class Check {
 	 * @access public
 	 * @param string $vat_number
 	 * @param Country $country
+	 * @param boolean $ignore_cache
 	 * @return boolean $valid
 	 */
-	public static function validate($vat_number, \Country $country) {
+	public static function validate($vat_number, \Country $country, &$reason, $ignore_cache) {
 		// 1. Check syntax
 		if (!self::validate_syntax($vat_number, $country)) {
+			$reason = 'invalid syntax';
 			return false;
 		}
 
 		// 2. Check if the vat is a european vat-number
 		if ($country->european != 1) {
+			$reason = 'country is not european';
 			return true;
 		}
 
 		//3. Check if vat-number is in cache
-		try {
-			$vat_cache = Cache::get_by_vat_number_country($vat_number, $country);
-			if ($vat_cache->valid == 1) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (\Exception $e) {}
+		if ($ignore_cache === false) {
+			try {
+				$vat_cache = Cache::get_by_vat_number_country($vat_number, $country);
+				if ($vat_cache->valid == 1) {
+					$reason = 'from cache';
+					return true;
+				} else {
+					$reason = 'from cache';
+					return false;
+				}
+			} catch (\Exception $e) {}
+		}
 
 		//4. Check online (VIES-server)
 		$result = self::validate_online($vat_number, $country);
 		if ($result['save'] === true) {
+			try {
+				$vat_cache = Cache::get_by_vat_number_country($vat_number, $country);
+				$vat_cache->delete();
+			} catch (\Exception $e) {}
+
 			$vat_cache = new Cache();
 			$vat_cache->vat_number = $vat_number;
 			$vat_cache->country_id = $country->id;
 			$vat_cache->valid = $result['result'];
 			$vat_cache->save();
+		} elseif ($result['reachable'] === false) {
+			$reason = 'VIES service not reachable';
+		} else {
+			$reason = 'invalid vat number';
 		}
 
 		return $result['result'];
