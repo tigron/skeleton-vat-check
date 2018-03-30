@@ -32,4 +32,5 @@ Run the initial migration or executed the following queries
 	
 ## Howto use
 
-Call \Skeleton\Vat\Check\Check::validate($vat_number, $country) to validate a given VAT number
+Run \Skeleton\Vat\Check\Check::validate($vat_number, $country, $reason, $ignore_cache) to validate a given VAT number
+or call skeleton vat-check:validate (arguments: vat_number and country_code, option ignore_cache)
