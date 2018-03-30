@@ -20,7 +20,7 @@ class Check {
 	 * @param boolean $ignore_cache
 	 * @return boolean $valid
 	 */
-	public static function validate($vat_number, \Country $country, &$reason, $ignore_cache) {
+	public static function validate($vat_number, \Country $country, &$reason = '', $ignore_cache = false) {
 		// 1. Check syntax
 		if (!self::validate_syntax($vat_number, $country)) {
 			$reason = 'invalid syntax';
