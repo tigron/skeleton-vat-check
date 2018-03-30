@@ -19,7 +19,7 @@
 		"issues": "https://github.com/tigron/skeleton-vat-check/issues"
 	},
 	"autoload": {
-		"psr-4": { "Skeleton\\Vat\\Check": "lib/Skeleton/Vat/Check/" }
+		"psr-4": { "Skeleton\\Vat\\Check\\": "lib/Skeleton/Vat/Check/" }
 	}
 
 }
