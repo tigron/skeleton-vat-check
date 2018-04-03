@@ -23,13 +23,13 @@ class Check {
 	public static function validate($vat_number, \Country $country, &$reason = '', $ignore_cache = false) {
 		// 1. Check syntax
 		if (!self::validate_syntax($vat_number, $country)) {
-			$reason = 'invalid syntax';
+			$reason = 'invalid_syntax';
 			return false;
 		}
 
 		// 2. Check if the vat is a european vat-number
 		if ($country->european != 1) {
-			$reason = 'country is not european';
+			$reason = 'not_european';
 			return true;
 		}
 
@@ -38,10 +38,10 @@ class Check {
 			try {
 				$vat_cache = Cache::get_by_vat_number_country($vat_number, $country);
 				if ($vat_cache->valid == 1) {
-					$reason = 'from cache';
+					$reason = 'valid_from_cache';
 					return true;
 				} else {
-					$reason = 'from cache';
+					$reason = 'invalid_from_cache';
 					return false;
 				}
 			} catch (\Exception $e) {}
@@ -61,9 +61,9 @@ class Check {
 			$vat_cache->valid = $result['result'];
 			$vat_cache->save();
 		} elseif ($result['reachable'] === false) {
-			$reason = 'VIES service not reachable';
+			$reason = 'vies_service_not_reachable';
 		} else {
-			$reason = 'invalid vat number';
+			$reason = 'invalid_number';
 		}
 
 		return $result['result'];
