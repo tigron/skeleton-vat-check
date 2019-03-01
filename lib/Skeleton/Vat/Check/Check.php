@@ -147,7 +147,9 @@ class Check {
 	public static function validate_online_call($vat_number, \Country $country) {
 		// The @ is to suppress the warnings triggered by the SOAP client when the URL is not reachable
 		// An exception is also thrown, which is catched higher in the stack
-		$client = @new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
+		$client = @new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", [
+			'cache_wsdl' => WSDL_CACHE_DISK
+		]);
 		$params = [ 'countryCode' => $country->vat, 'vatNumber' => $vat_number ];
 		$result = $client->checkVat($params);
 
