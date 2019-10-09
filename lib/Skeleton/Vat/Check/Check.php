@@ -161,8 +161,6 @@ class Check {
 		]);
 		$params = [ 'countryCode' => $vat_config[ $country->get_iso2() ]['country_code'], 'vatNumber' => $vat_number ];
 		$result = $client->checkVat($params);
-		var_dump($result);
-		echo 'aze';
 
 		if ($result->valid == 1) {
 			return true;
