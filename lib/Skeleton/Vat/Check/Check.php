@@ -20,15 +20,17 @@ class Check {
 	 * @param boolean $ignore_cache
 	 * @return boolean $valid
 	 */
-	public static function validate($vat_number, \Country $country, &$reason = '', $ignore_cache = false) {
+	public static function validate($vat_number, Country $country, &$reason = '', $ignore_cache = false) {
 		// 1. Check syntax
 		if (!self::validate_syntax($vat_number, $country)) {
 			$reason = 'invalid_syntax';
 			return false;
 		}
 
+		$vat_config = Config::$vat_config;
+
 		// 2. Check if the vat is a european vat-number
-		if ($country->european != 1) {
+		if (!isset($vat_config[ $country->get_iso2() ])) {
 			$reason = 'not_european';
 			return true;
 		}
@@ -77,11 +79,12 @@ class Check {
 	 * @param Country $country
 	 * @return boolean $valid
 	 */
-	public static function validate_syntax($vat_number, \Country $country) {
-		$regexps = Config::$regexp_vat;
+	public static function validate_syntax($vat_number, Country $country) {
+		$vat_config = Config::$vat_config;
+		if (isset($vat_config[ $country->get_iso2() ])) {
+			$regexp = $vat_config[ $country->get_iso2() ]['regexp'];
 
-		if (isset($regexps[$country->vat])) {
-			if (!preg_match($regexps[$country->vat], $vat_number)) {
+			if (!preg_match($regexp, $vat_number)) {
 				return false;
 			} else {
 				return true;
@@ -120,7 +123,7 @@ class Check {
 			} catch (\Exception $e) {
 				$retry--;
 
-				if ($retry === false) {
+				if ($retry === 0) {
 					$continue = false;
 					$result = false;
 					$save = false;
@@ -144,14 +147,22 @@ class Check {
 	 * @throws \Exception $e
 	 * @return boolean $valid
 	 */
-	public static function validate_online_call($vat_number, \Country $country) {
+	public static function validate_online_call($vat_number, Country $country) {
+		$vat_config = Config::$vat_config;
+		if (!isset($vat_config[ $country->get_iso2() ])) {
+			throw new \Exception('Cannot perform online call for non-EU country');
+		}
+
+	echo 'online call' . "\n";
 		// The @ is to suppress the warnings triggered by the SOAP client when the URL is not reachable
 		// An exception is also thrown, which is catched higher in the stack
 		$client = @new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", [
 			'cache_wsdl' => WSDL_CACHE_DISK
 		]);
-		$params = [ 'countryCode' => $country->vat, 'vatNumber' => $vat_number ];
+		$params = [ 'countryCode' => $vat_config[ $country->get_iso2() ]['country_code'], 'vatNumber' => $vat_number ];
 		$result = $client->checkVat($params);
+		var_dump($result);
+		echo 'aze';
 
 		if ($result->valid == 1) {
 			return true;

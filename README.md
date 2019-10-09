@@ -32,5 +32,30 @@ Run the initial migration or executed the following queries
 	
 ## Howto use
 
-Run \Skeleton\Vat\Check\Check::validate($vat_number, $country, $reason, $ignore_cache) to validate a given VAT number
-or call skeleton vat-check:validate (arguments: vat_number and country_code, option ignore_cache)
+	/**
+	 * the VAT number to check
+	 */
+	$vat_number = '0886776275';
+	
+	/**
+	 * The Country object. 
+	 * Your object should implement the \Skeleton\Vat\Check\Country Interface
+	 */
+	$country = $your_country_object;
+	
+	/**
+	 * A string for the fail reason. This will be passed by reference and the 
+	 * error can be retrieved after calling the validate method
+	 */
+	$reason = '';
+	
+	/** 
+	 * A flag to ignore a cache lookup
+	 */
+	$ignore_cache = false;
+	
+	/**
+	 * Perform the call
+	 */
+    \Skeleton\Vat\Check\Check::validate($vat_number, $country, $reason, $ignore_cache) 
+
