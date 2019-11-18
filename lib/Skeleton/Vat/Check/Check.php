@@ -153,7 +153,6 @@ class Check {
 			throw new \Exception('Cannot perform online call for non-EU country');
 		}
 
-	echo 'online call' . "\n";
 		// The @ is to suppress the warnings triggered by the SOAP client when the URL is not reachable
 		// An exception is also thrown, which is catched higher in the stack
 		$client = @new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", [
