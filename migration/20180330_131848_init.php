@@ -34,7 +34,7 @@ class Migration_20180330_131848_Init extends \Skeleton\Database\Migration {
 
 		$db->query("
 			INSERT INTO `transaction` (`classname`, `created`, `scheduled_at`, `data`, `retry_attempt`, `recurring`, `completed`, `failed`, `locked`, `frozen`, `parallel`)
-			VALUES ('Cleanup_Vat_Check_Cache', now(), now(), '', '', '1', '0', '0', '0', '0', '0');
+			VALUES ('Cleanup_Vat_Check_Cache', now(), now(), '', '0', '1', '0', '0', '0', '0', '0');
 		", []);
 	}
 
