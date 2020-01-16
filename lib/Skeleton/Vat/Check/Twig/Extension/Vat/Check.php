@@ -7,7 +7,7 @@
 
 namespace Skeleton\Vat\Check\Twig\Extension\Vat;
 
-class Check extends \Twig_Extension {
+class Check extends \Twig\Extension\AbstractExtension {
 
 	/**
      * Returns a list of functions
@@ -15,9 +15,9 @@ class Check extends \Twig_Extension {
      * @return array
      */
 	public function getFunctions() {
-		return array(
-			new \Twig_SimpleFunction('example_vat', array($this, 'get_example_vat'), array('is_safe' => array('html')))
-		);
+		return [
+			new \Twig\TwigFunction('example_vat', [ $this, 'get_example_vat' ], [ 'is_safe' => [ 'html' ] ])
+		];
 	}
 
 	/**
