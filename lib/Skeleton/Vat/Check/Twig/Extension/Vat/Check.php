@@ -28,11 +28,11 @@ class Check extends \Twig\Extension\AbstractExtension {
 	 */
 	public function get_example_vat($vat_code) {
 		$vat_code = strtoupper($vat_code);
-		if (!isset(\Skeleton\Vat\Check\Config::$example_vat[$vat_code])) {
+		if (!isset(\Skeleton\Vat\Check\Config::$vat_config[$vat_code])) {
 			return 'unknown';
 		}
 
-		return \Skeleton\Vat\Check\Config::$example_vat[$vat_code];
+		return \Skeleton\Vat\Check\Config::$vat_config[$vat_code]['example'];
 	}
 
     /**
