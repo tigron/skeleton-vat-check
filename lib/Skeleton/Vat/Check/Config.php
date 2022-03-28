@@ -17,7 +17,49 @@ class Config {
 	 * @var int $caching_window
 	 */
 	public static $caching_window = '-1 day';
-	
+
+	/**
+	 * The steps that will be used to validate the VAT numbers
+	 *
+	 * @access public
+	 * @var array Possible options Syntax, Caching, Vies, Kbo (kbo needs api settings); 
+	 */
+	private static $resolvers = [];
+
+	/**
+	 * Set the resolvers (an array of classes)
+	 *
+	 * @param array $resolvers
+	 * @return void
+	 */
+	public static function set_resolvers($resolvers) {
+		self::$resolvers = $resolvers;
+	}
+
+	/**
+	 * Get the reolvers
+	 *
+	 * @return array
+	 */
+	public static function get_resolvers(): array {
+		return self::$resolvers;
+	}
+
+	/**
+	 * The authentication for KBO
+	 *
+	 * @var array
+	 */
+	public static $kbo_authentication = [
+		'user' => "",
+		'key' => ""
+	];
+
+	/**
+	 * The country array
+	 *
+	 * @var array
+	 */
 	public static $vat_config = [
 		'AT' => [
 			'regexp' => '/^U[0-9]{8}$/',
@@ -153,7 +195,6 @@ class Config {
 			'regexp' => '/^[0-9]{10}$/',
 			'example' => '1234567890',
 			'country_code' => 'SK',
-		],
-		
+		],	
 	];
 }

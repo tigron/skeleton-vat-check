@@ -30,7 +30,7 @@ Run the initial migration or executed the following queries
 	INSERT INTO `transaction` (`classname`, `created`, `scheduled_at`, `data`, `retry_attempt`, `recurring`, `completed`, `failed`, `locked`, `frozen`, `parallel`) 
 	VALUES ('Cleanup_Vat_Check_Cache', now(), now(), '', '', '1', '0', '0', '0', '0', '0');
 	
-## Howto use
+## How to use
 
 	/**
 	 * the VAT number to check
@@ -58,4 +58,27 @@ Run the initial migration or executed the following queries
 	 * Perform the call
 	 */
     \Skeleton\Vat\Check\Check::validate($vat_number, $country, $reason, $ignore_cache) 
+
+## Optional config
+	
+	By default the validator will do these steps: Check Syntax, check recent cache (for API results) and Check against Vies. 
+	It is now possible to change the order of these steps and it is possible to do an aditional step against the KBO (requires authentication).
+
+	/**
+	* Example config
+	*/
+	\Skeleton\Vat\Check\Config::set_resolvers([
+											new \Skeleton\Vat\Check\Resolver\Syntax(),
+											new \Skeleton\Vat\Check\Resolver\Cache(),
+											new \Skeleton\Vat\Check\Resolver\Kbo(), // Not used by default 
+											new \Skeleton\Vat\Check\Resolver\Vies()
+										]);
+
+	/**
+	* Example auhtentication
+	*/
+	\Skeleton\Vat\Check\Config::$kbo_authentication = ['user' => 'test@tigron.be',
+														key' => 'test_key'
+													];
+
 
