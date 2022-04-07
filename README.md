@@ -2,11 +2,11 @@
 
 ## Description
 
-Check Vat number in 4 steps:
-1. syntax via a predefined regex array (list available in config)
-2. is european
-3. caching table (prevent denial of VIES service)
-4. VIES service
+Check Vat number with separate resolvers (these are the default steps):
+1. Is european (always performed not configurable)
+2. Syntax via a predefined regex array (list available in config)
+3. Caching table (to check if there were recent results for KBO and VIES + avoid taxing the API when not needed)
+4. VIES service check
 
 ## Installation
 
@@ -44,41 +44,42 @@ Run the initial migration or executed the following queries
 	$country = $your_country_object;
 	
 	/**
-	 * A string for the fail reason. This will be passed by reference and the 
-	 * error can be retrieved after calling the validate method
+	 * The resolver used to give you the result, passed by reference and the 
+	 * resolver_used can be retrieved after calling the validate method
 	 */
-	$reason = '';
-	
-	/** 
-	 * A flag to ignore a cache lookup
-	 */
-	$ignore_cache = false;
+	$resolver_used = '';
 	
 	/**
 	 * Perform the call
 	 */
-    \Skeleton\Vat\Check\Check::validate($vat_number, $country, $reason, $ignore_cache) 
+    \Skeleton\Vat\Check\Check::validate($vat_number, $country, $resolver_used) 
 
 ## Optional config
 	
-	By default the validator will do these steps: Check Syntax, check recent cache (for API results) and Check against Vies. 
+	By default the validator will do these steps: 
+	1. Is european (always performed not configurable)
+	2. Syntax via a predefined regex array (list available in config)
+	3. Caching table (to check if there were recent results for KBO and VIES + avoid taxing the API when not needed)
+	4. VIES service checkCheck Syntax, check recent cache (for API results) and Check against Vies. 
+
 	It is now possible to change the order of these steps and it is possible to do an aditional step against the KBO (requires authentication).
 
 	/**
 	* Example config
 	*/
 	\Skeleton\Vat\Check\Config::set_resolvers([
-											new \Skeleton\Vat\Check\Resolver\Syntax(),
-											new \Skeleton\Vat\Check\Resolver\Cache(),
-											new \Skeleton\Vat\Check\Resolver\Kbo(), // Not used by default 
-											new \Skeleton\Vat\Check\Resolver\Vies()
-										]);
+		new \Skeleton\Vat\Check\Resolver\Syntax(),
+		new \Skeleton\Vat\Check\Resolver\Cache(),
+		new \Skeleton\Vat\Check\Resolver\Kbo(), // Not used by default 
+		new \Skeleton\Vat\Check\Resolver\Vies()
+	]);
 
 	/**
 	* Example auhtentication
 	*/
-	\Skeleton\Vat\Check\Config::$kbo_authentication = ['user' => 'test@tigron.be',
-														key' => 'test_key'
-													];
+	\Skeleton\Vat\Check\Config::$kbo_authentication = [
+		'user' => 'test@tigron.be',
+		key' => 'test_key'
+	];
 
 

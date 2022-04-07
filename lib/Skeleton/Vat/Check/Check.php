@@ -8,8 +8,6 @@
 
 namespace Skeleton\Vat\Check;
 
-use Skeleton\Core\Skeleton;
-
 class Check {
 	/**
 	 * Validate a VAT number
@@ -20,11 +18,10 @@ class Check {
 	 * @param \Country $country
 	 * @return boolean $valid
 	 */
-	public static function validate($vat_number, \Country $country, &$reason = '') {
+	public static function validate($vat_number, \Country $country, &$resolver_used = null) {
 		// Default check
 		$vat_config = \Skeleton\Vat\Check\Config::$vat_config;
 		if (!isset($vat_config[ $country->get_iso2() ])) {
-			$reason = 'not_european';
 			return true;
 		}
 
@@ -43,6 +40,7 @@ class Check {
 		foreach ($resolvers as $resolver)  {
 			try {
 				$result = $resolver->resolve($vat_number, $country);
+				$resolver_used = $resolver;
 			} catch (Answer\Exception $e) {
 				continue;
 			}

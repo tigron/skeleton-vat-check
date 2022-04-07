@@ -7,6 +7,8 @@
  */
 
 namespace Skeleton\Vat\Check\Resolver;
+
+use Exception;
 use Skeleton\Vat\Check\Answer;
 use GuzzleHttp\Client;
 
@@ -47,14 +49,15 @@ class Kbo {
 			} catch (\Exception $e) {
 				$retry--;
 				if ($retry === 0) {
-					throw new Answer\Exception('Multiple exceptions from the API');
+					throw new Answer\Exception($e);
 				}
 			}
 		}
 	}
 
+    
     /**
-	 * Try to check the VAT number online against the KBO database.
+	 * Try to check the enterprise number online against the KBO database.
 	 * This call can only be used for BE numbers.
 	 *
 	 * @access public
@@ -65,14 +68,19 @@ class Kbo {
 	 */
 	public static function validate_call($vat_number, $kbo_authentication) {
 		$client = new Client();
-		$result = $client->get("https://api.kbodata.app/v2/vat/BE" . trim($vat_number), [
+		try{
+			// We only need to check if it exists
+			$client->get("https://api.kbodata.app/v2/enterprise/" . trim($vat_number), [
 				'auth' => [$kbo_authentication['user'], $kbo_authentication['key']]
 			]);
-		$vat = json_decode($result->getBody())->Vat;
-		if ($vat->isValid == 1) {
-			return true;
-		} else {
-			return false;
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			// 404 Not found is the expected response 
+			if($e->getResponse()->getStatusCode() == '404') {
+				return false;
+			} else {
+				throw $e;
+			}
 		}
+		return true;
 	}
 }
