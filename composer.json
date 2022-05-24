@@ -6,7 +6,7 @@
 		"tigron/skeleton-object": "*",
 		"tigron/skeleton-transaction": "*",
 		"tigron/skeleton-migrate": "*",
-		"guzzlehttp/guzzle": "^6.5.5"
+		"guzzlehttp/guzzle": "^7.2"
 	},
 	"license": "MIT",
 	"authors": [
