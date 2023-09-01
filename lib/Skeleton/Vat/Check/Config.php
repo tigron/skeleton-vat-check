@@ -132,7 +132,7 @@ class Config {
 			'country_code' => 'HU'
 		],
 		'IE'  => [
-			'regexp' => '/^[0-9a-zA-Z]{9}$/',
+			'regexp' => '/^[0-9a-zA-Z]{8,9}$/',
 			'example' => '1S23456L',
 			'country_code' => 'IE'
 		],
