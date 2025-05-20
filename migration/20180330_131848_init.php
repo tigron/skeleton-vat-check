@@ -32,10 +32,18 @@ class Migration_20180330_131848_Init extends \Skeleton\Database\Migration {
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		", []);
 
-		$db->query("
-			INSERT INTO `transaction` (`classname`, `created`, `scheduled_at`, `data`, `retry_attempt`, `recurring`, `completed`, `failed`, `locked`, `frozen`, `parallel`)
-			VALUES ('Cleanup_Vat_Check_Cache', now(), now(), '', '0', '1', '0', '0', '0', '0', '0');
-		", []);
+		$transaction = new \Transaction_Cleanup_Vat_Check_Cache();
+		$transaction->classname = 'Cleanup_Vat_Check_Cache';
+		$transaction->data = null;
+		$transaction->retry_attempt = 0;
+		$transaction->recurring = 1;
+		$transaction->completed = 0;
+		$transaction->failed = 0;
+		$transaction->locked = 0;
+		$transaction->parallel = 0;
+		$transaction->scheduled_at = date('Y-m-d H:i:s');
+		$transaction->created = date('Y-m-d H:i:s');
+		$transaction->save();
 	}
 
 	/**
