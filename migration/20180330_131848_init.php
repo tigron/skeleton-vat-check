@@ -32,6 +32,9 @@ class Migration_20180330_131848_Init extends \Skeleton\Database\Migration {
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		", []);
 
+		$original_auto_discard_value = \Skeleton\Database\Config::$auto_discard;
+		\Skeleton\Database\Config::$auto_discard = true;
+
 		$transaction = new \Transaction_Cleanup_Vat_Check_Cache();
 		$transaction->classname = 'Cleanup_Vat_Check_Cache';
 		$transaction->data = null;
@@ -40,10 +43,13 @@ class Migration_20180330_131848_Init extends \Skeleton\Database\Migration {
 		$transaction->completed = 0;
 		$transaction->failed = 0;
 		$transaction->locked = 0;
+		$transaction->frozen = 0;
 		$transaction->parallel = 0;
 		$transaction->scheduled_at = date('Y-m-d H:i:s');
 		$transaction->created = date('Y-m-d H:i:s');
 		$transaction->save();
+
+		\Skeleton\Database\Config::$auto_discard = $original_auto_discard_value;
 	}
 
 	/**
