@@ -34,7 +34,7 @@ class Vat_Check_Validate extends \Skeleton\Console\Command {
 	 * @param InputInterface $input
 	 * @param OutputInterface $output
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output) {
+	protected function execute(InputInterface $input, OutputInterface $output): int {
 		try {
 			$country = \Country::get_by_vat_code($input->getArgument('vat_code'));
 		} catch (\Exception $e) {
