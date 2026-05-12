@@ -1,7 +1,5 @@
 <?php
 /**
- * 
- *
  * @author Roan Buysse <roan@tigron.be>
  */
 

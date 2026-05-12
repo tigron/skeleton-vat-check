@@ -22,7 +22,7 @@ class Config {
 	 * The steps that will be used to validate the VAT numbers
 	 *
 	 * @access public
-	 * @var array Possible options Syntax, Caching, Vies, Kbo (kbo needs api settings); 
+	 * @var array Possible options Syntax, Caching, Vies, Kbo (kbo needs api settings);
 	 */
 	private static $resolvers = [];
 
@@ -70,131 +70,131 @@ class Config {
 			'regexp' => '/^[0-9]{10}$/',
 			'example' => '0123456789',
 			'country_code' => 'BE'
-		],			
+		],
 		'BG' => [
 			'regexp' => '/^[0-9]{9,10}$/',
 			'example' => '123456789',
 			'country_code' => 'BG'
 		],
-		'CH'  => [
+		'CH' => [
 			'regexp' => '/^CHE\-[0-9]{9}$/',
 			'example' => 'CHE-123456789',
 			'country_code' => 'CH'
 		],
-		'CY'  => [
+		'CY' => [
 			'regexp' => '/^[0-9a-zA-Z]{9}$/',
 			'example' => '12345678L',
 			'country_code' => 'CY'
 		],
-		'CZ'  => [
+		'CZ' => [
 			'regexp' => '/^[0-9]{8,10}$/',
 			'example' => '123456789',
 			'country_code' => 'CZ'
 		],
-		'DE'  => [
+		'DE' => [
 			'regexp' => '/^[0-9]{9}$/',
 			'example' => '123456789',
 			'country_code' => 'DE'
 		],
-		'DK'  => [
+		'DK' => [
 			'regexp' => '/^[0-9]{8}$/',
 			'example' => '12345678',
 			'country_code' => 'DK'
 		],
-		'EE'  => [
+		'EE' => [
 			'regexp' => '/^[0-9]{9}$/',
 			'example' => '123456789',
 			'country_code' => 'EE'
 		],
-		'GR'  => [
+		'GR' => [
 			'regexp' => '/^[0-9]{9}$/',
 			'example' => '123456789',
 			'country_code' => 'EL'
 		],
-		'ES'  => [
+		'ES' => [
 			'regexp' => '/^[0-9a-zA-Z]{9}$/',
 			'example' => 'X9999999X',
 			'country_code' => 'ES'
 		],
-		'FI'  => [
+		'FI' => [
 			'regexp' => '/^[0-9]{8}$/',
 			'example' => '12345678',
 			'country_code' => 'FI'
 		],
-		'FR'  => [
+		'FR' => [
 			'regexp' => '/^[a-zA-Z0-9]{2}[0-9]{9}$/',
 			'example' => '12123456789',
 			'country_code' => 'FR'
 		],
-		'HU'  => [
+		'HU' => [
 			'regexp' => '/^[0-9]{8}$/',
 			'example' => '12345678',
 			'country_code' => 'HU'
 		],
-		'IE'  => [
+		'IE' => [
 			'regexp' => '/^[0-9a-zA-Z]{8,9}$/',
 			'example' => '1S23456L',
 			'country_code' => 'IE'
 		],
-		'IT'  => [
+		'IT' => [
 			'regexp' => '/^[0-9]{11}$/',
 			'example' => '12345678901',
 			'country_code' => 'IT'
 		],
-		'LT'  => [
+		'LT' => [
 			'regexp' => '/^[0-9]{9,12}$/',
 			'example' => '123456789',
 			'country_code' => 'LT'
 		],
-		'LU'  => [
+		'LU' => [
 			'regexp' => '/^[0-9]{8}$/',
 			'example' => '12345678',
 			'country_code' => 'LU'
 		],
-		'LV'  => [
+		'LV' => [
 			'regexp' => '/^[0-9]{11}$/',
 			'example' => '12345678901',
 			'country_code' => 'LV'
 		],
-		'MT'  => [
+		'MT' => [
 			'regexp' => '/^[0-9]{8}$/',
 			'example' => '12345678',
 			'country_code' => 'MT'
 		],
-		'NL'  => [
+		'NL' => [
 			'regexp' => '/^[a-zA-Z0-9]{12}$/',
 			'example' => '123412123B12',
 			'country_code' => 'NL'
 		],
-		'PL'  => [
+		'PL' => [
 			'regexp' => '/^[0-9]{10}$/',
 			'example' => '1234567890',
 			'country_code' => 'PL'
 		],
-		'PT'  => [
+		'PT' => [
 			'regexp' => '/^[0-9]{9}$/',
 			'example' => '123456789',
 			'country_code' => 'PT'
 		],
-		'RO'  => [
+		'RO' => [
 			'regexp' => '/^[0-9]{2,10}$/',
 			'example' => '1234567890',
 			'country_code' => 'RO'
 		],
-		'SE'  => [
+		'SE' => [
 			'regexp' => '/^[0-9]{12}$/',
 			'example' => '123456789012',
 			'country_code' => 'SE'
 		],
-		'SI'  => [
+		'SI' => [
 			'regexp' => '/^[0-9]{8}$/',
 			'example' => '12345678',
 			'country_code' => 'SI'
 		],
-		'SK'  => [
+		'SK' => [
 			'regexp' => '/^[0-9]{10}$/',
 			'example' => '1234567890',
 			'country_code' => 'SK',
-		],	
+		],
 	];
 }

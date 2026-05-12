@@ -24,7 +24,7 @@ class Syntax {
 
 			if (!preg_match($regexp, $vat_number)) {
 				return new Answer\Definite\Negative();
-			} 
+			}
 		}
 
 		if (!preg_match('/^[a-zA-Z0-9.\-]{2,20}$/', $vat_number)) {

@@ -2,7 +2,7 @@
 /**
  * Validation_Vies class
  * For VIES, please see http://ec.europa.eu/taxation_customs/vies/
- * 
+ *
  * @author David Vandemaele <david@tigron.be>
  * @author Roan Buysse <roan@tigron.be>
  */
@@ -11,7 +11,7 @@ namespace Skeleton\Vat\Check\Resolver;
 use Skeleton\Vat\Check\Answer;
 
 class Vies {
-    /**
+	/**
 	 * Resolve the VAT number against Vies
 	 *
 	 * @access public
@@ -20,7 +20,7 @@ class Vies {
 	 * @return boolean $valid
 	 */
 	public static function resolve($vat_number, \Country $country) {
-        $continue = true;
+		$continue = true;
 		$retry = 3;
 
 		while ($continue == true) {
@@ -42,7 +42,7 @@ class Vies {
 		}
 	}
 
-    /**
+	/**
 	 * Try to check the VAT number online against the VIES database
 	 * This method should ALWAYS be used in a try {} catch {}, because
 	 * an Exception can be thrown at any time when the webservice is
@@ -70,7 +70,7 @@ class Vies {
 
 		if ($result->valid == 1) {
 			return true;
-		} 
+		}
 		return false;
 	}
 }

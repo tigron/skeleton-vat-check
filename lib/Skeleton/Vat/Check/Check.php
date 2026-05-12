@@ -25,7 +25,7 @@ class Check {
 			return true;
 		}
 
-		// The order of the other validations is defined in the config array. 
+		// The order of the other validations is defined in the config array.
 		if (empty(Config::get_resolvers())) {
 			$resolvers = Config::set_resolvers([
 				new Resolver\Syntax(),
@@ -33,7 +33,7 @@ class Check {
 				new Resolver\Vies()
 			]);
 		}
-		
+
 		$resolvers = Config::get_resolvers();
 
 		// Loop over the configured resolvers
