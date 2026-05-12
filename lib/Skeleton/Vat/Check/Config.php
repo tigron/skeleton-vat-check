@@ -78,7 +78,7 @@ class Config {
 		],
 		'CH'  => [
 			'regexp' => '/^CHE\-[0-9]{9}$/',
-			'example' => 'U12345678',
+			'example' => 'CHE-123456789',
 			'country_code' => 'CH'
 		],
 		'CY'  => [
